@@ -1,4 +1,4 @@
-# todoist Clone
+# todoist clone
 
 ### [Live Demo](https://todoistcloned.herokuapp.com/)
 
