@@ -73,6 +73,7 @@ const TaskItems = ({ selectedTab, tasks, setTasks }) => {
   function dele(index) {
     const x = tasks.filter((e) => index !== e.id);
     setTasks(x);
+    localStorage.setItem("TASK", JSON.stringify(x));
   }
 
   let tasksToRender = [...tasks];
@@ -107,19 +108,19 @@ const TaskItems = ({ selectedTab, tasks, setTasks }) => {
 };
 
 const Tasks = ({ selectedTab }) => {
+  const getLocalStorage = () => {
+    let key = localStorage.getItem("TASK");
+    if (key) return JSON.parse(localStorage.getItem("TASK"));
+    else return [];
+  };
   const [showAddTask, setShowAddTask] = useState(false);
 
-  const [tasks, setTasks] = useState([]);
-
-  useEffect(() => {
-    if (JSON.parse(localStorage.getItem("TASK"))) {
-      setTasks([...JSON.parse(localStorage.getItem("TASK"))]);
-    }
-  }, []);
+  const [tasks, setTasks] = useState(getLocalStorage());
 
   const addNewTask = (text, date) => {
     const item = { id: tasks.length, text: text, date: date || new Date() };
     setTasks((prevState) => [...prevState, item]);
+    // localStorage.setItem("TASK", JSON.stringify(tasks));
   };
 
   useEffect(() => {
